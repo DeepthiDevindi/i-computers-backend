@@ -4,17 +4,22 @@ import dns from "node:dns";
 import userRouter from "./routers/userRouter.js";
 import authenticateUser from "./middlewares/authentication.js";
 import productRouter from "./routers/productRouter.js";
-
+import cors from "cors";
+import dotenv from "dotenv";
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
 
-const mongoURL = "mongodb+srv://admin:1234@cluster0.i1sxlyv.mongodb.net/icomputers?appName=Cluster0"
+dotenv.config();
+
+const mongoURL = process.env.MOONGO_URI;
 
 mongoose.connect(mongoURL).then(
     ()=>{
     console.log("Connected to MongoDB");
 })
+
+app.use(cors());
 
 app.use(express.json());  
 

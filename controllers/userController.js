@@ -45,7 +45,7 @@ export async function loginUsers(req, res) {
 
             const token = jwt.sign(payload, "i-computers" , { expiresIn: "48 hours" });
 
-            res.json({ token: token });
+            res.json({ token: token, isAdmin: user.isAdmin });
 
         } else {
             res.json({ message: "Incorrect password" });
